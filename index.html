@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio cá nhân của Do Na Tra - Sinh viên IT/Software Engineering tại NTTU & Full-stack Web & Mobile Developer.">
+    <meta name="author" content="Do Na Tra">
+    <title>Do Na Tra | Personal Portfolio</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Block -->
+    <header class="header">
+        <div class="container flex-between header__container">
+            <a href="#" class="header__logo">
+                DO NA TRA
+            </a>
+            <nav class="header__nav" aria-label="Main Navigation">
+                <a href="#about" class="header__link">Giới Thiệu</a>
+                <a href="#services" class="header__link">Chuyên Môn</a>
+                <a href="#projects" class="header__link">Dự Án</a>
+                <a href="#contact" class="header__link">Liên Hệ</a>
+            </nav>
+            <div class="header__actions">
+                <a href="#contact" class="btn-primary">Liên Hệ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+
+        <!-- Hero Block -->
+        <section id="hero" class="hero section-padding">
+            <div class="container grid-2-cols items-center hero__container">
+                <!-- Hero Left Content -->
+                <div class="hero__content">
+                    <h1 class="hero__title">Xin chào, tôi là Do Na Tra</h1>
+                    <div class="hero__subtitle">
+                        <span id="auto-typing" class="hero__typing"></span>
+                    </div>
+                    <div class="hero__actions">
+                        <a href="#projects" class="btn-primary">Xem Projects</a>
+                    </div>
+                </div>
+                
+                <!-- Hero Right Code Snippet Box -->
+                <div class="hero__visual">
+                    <div class="hero__snippet">
+                        <div class="hero__snippet-header flex">
+                            <span class="hero__snippet-dot hero__snippet-dot--red"></span>
+                            <span class="hero__snippet-dot hero__snippet-dot--yellow"></span>
+                            <span class="hero__snippet-dot hero__snippet-dot--green"></span>
+                        </div>
+                        <div class="hero__snippet-body font-mono">
+                            <div class="hero__snippet-line"><span class="hero__snippet-keyword">const</span> <span class="hero__snippet-name">student</span> = {</div>
+                            <div class="hero__snippet-line hero__snippet-line--indent">name: <span class="hero__snippet-str">'Do Na Tra'</span>,</div>
+                            <div class="hero__snippet-line hero__snippet-line--indent">university: <span class="hero__snippet-str">'NTTU'</span>,</div>
+                            <div class="hero__snippet-line hero__snippet-line--indent">major: <span class="hero__snippet-str">'Software Engineering'</span>,</div>
+                            <div class="hero__snippet-line hero__snippet-line--indent">skills: [<span class="hero__snippet-str">'Web'</span>, <span class="hero__snippet-str">'Mobile'</span>, <span class="hero__snippet-str">'DB'</span>]</div>
+                            <div class="hero__snippet-line">};</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Bento Grid Block -->
+        <section id="about" class="about section-padding">
+            <div class="container">
+                <h2 class="title-primary text-center">Giới Thiệu</h2>
+                
+                <!-- Bento Grid Layout -->
+                <div class="bento-grid">
+                    <!-- Item 1: Large -->
+                    <div class="bento-item bento-item--large">
+                        <div class="bento-item__badge">💡 Sứ Mệnh</div>
+                        <h3 class="bento-item__title">Đam mê phát triển Full-stack</h3>
+                        <p class="bento-item__text">
+                            Tôi luôn hào hứng tìm tòi và ứng dụng những giải pháp công nghệ toàn diện từ phía máy khách (Frontend) đến phía máy chủ (Backend). Tạo ra các ứng dụng mượt mà, tối giản và hữu ích là mục tiêu hàng đầu của tôi.
+                        </p>
+                    </div>
+
+                    <!-- Item 2: Medium -->
+                    <div class="bento-item">
+                        <div class="bento-item__badge">📊 Nghiên Cứu</div>
+                        <h3 class="bento-item__title">Big Data & Machine Learning</h3>
+                        <p class="bento-item__text">
+                            Đang đi sâu tìm tòi và hiện thực hóa các thuật toán học máy cơ bản như **KNN (K-Nearest Neighbors)** và **Decision Trees** để khai phá tri thức từ dữ liệu lớn.
+                        </p>
+                    </div>
+
+                    <!-- Item 3: Small -->
+                    <div class="bento-item">
+                        <div class="bento-item__badge">☁️ Vận Hành</div>
+                        <h3 class="bento-item__title">Kiến Trúc DevOps</h3>
+                        <p class="bento-item__text">
+                            Khám phá quy trình đóng gói container, quản lý tiến trình và triển khai ứng dụng tự động trên các nền tảng đám mây hiện đại.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Block -->
+        <section id="services" class="services section-padding">
+            <div class="container">
+                <h2 class="title-primary text-center">Chuyên Môn</h2>
+                <div class="grid-3-cols services__grid">
+                    
+                    <!-- Card 1 -->
+                    <article class="card-service">
+                        <div class="card-service__icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="card-service__title">Web Development</h3>
+                        <p class="card-service__desc">Xây dựng ứng dụng web hiện đại sử dụng React, Next.js, NestJS. Đảm bảo tốc độ tối ưu và giao diện đáp ứng.</p>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="card-service">
+                        <div class="card-service__icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="card-service__title">Mobile App Development</h3>
+                        <p class="card-service__desc">Phát triển các ứng dụng di động đa nền tảng bằng Flutter, mang lại trải nghiệm mượt mà, tối giản.</p>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="card-service">
+                        <div class="card-service__icon">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="card-service__title">Database Management</h3>
+                        <p class="card-service__desc">Thiết kế cấu trúc dữ liệu hiệu quả, vận hành tối ưu hóa truy vấn thông qua Oracle, MySQL, MongoDB.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Timeline Block -->
+        <section id="projects" class="timeline section-padding">
+            <div class="container">
+                <h2 class="title-primary text-center">Dự Án Tiêu Biểu</h2>
+                
+                <div class="timeline__container">
+                    
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline__item">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content">
+                            <div class="timeline__time">2026 - Hiện tại</div>
+                            <h3 class="timeline__project-title">EzBiz AI Chatbot</h3>
+                            <ul class="timeline__feature-list">
+                                <li>Hỗ trợ doanh nghiệp trả lời khách hàng tự động thông qua AI.</li>
+                                <li>Tích hợp tìm kiếm ngữ nghĩa nâng cao sử dụng mô hình RAG.</li>
+                                <li>Lưu trữ trạng thái hội thoại thời gian thực tin cậy.</li>
+                            </ul>
+                            <div class="timeline__tags">
+                                <span class="tech-tag">#FastAPI</span>
+                                <span class="tech-tag">#RAG</span>
+                                <span class="tech-tag">#Firestore</span>
+                            </div>
+                            <div class="timeline__actions">
+                                <button class="btn-outline timeline__demo-btn" data-video="DEMO/DM1.mp4.mp4">DEMO</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline__item">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content">
+                            <div class="timeline__time">2025</div>
+                            <h3 class="timeline__project-title">Hệ thống LibTech</h3>
+                            <ul class="timeline__feature-list">
+                                <li>Phần mềm quản lý thư viện thông minh và số hóa tài liệu.</li>
+                                <li>Quản lý mượn trả, phân loại danh mục sách tự động.</li>
+                                <li>Tối ưu hóa tìm kiếm đầu sách và kiểm kê báo cáo tồn kho.</li>
+                            </ul>
+                            <div class="timeline__tags">
+                                <span class="tech-tag">#React</span>
+                                <span class="tech-tag">#NestJS</span>
+                                <span class="tech-tag">#MySQL</span>
+                            </div>
+                            <div class="timeline__actions">
+                                <button class="btn-outline timeline__demo-btn" data-video="DEMO/DM1.mp4.mp4">DEMO</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline__item">
+                        <div class="timeline__marker"></div>
+                        <div class="timeline__content">
+                            <div class="timeline__time">2024</div>
+                            <h3 class="timeline__project-title">LMS Deployment</h3>
+                            <ul class="timeline__feature-list">
+                                <li>Triển khai hệ thống quản lý học tập trực tuyến mở rộng.</li>
+                                <li>Đóng gói môi trường đồng bộ giúp giảm thiểu sai sót vận hành.</li>
+                                <li>Quản lý tiến trình bền bỉ và tự động tải lại khi gặp sự cố.</li>
+                            </ul>
+                            <div class="timeline__tags">
+                                <span class="tech-tag">#Azure</span>
+                                <span class="tech-tag">#Docker</span>
+                                <span class="tech-tag">#PM2</span>
+                                <span class="tech-tag">#Ubuntu</span>
+                            </div>
+                            <div class="timeline__actions">
+                                <button class="btn-outline timeline__demo-btn" data-video="DEMO/DM1.mp4.mp4">DEMO</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Block -->
+        <section id="skills" class="skills section-padding">
+            <div class="container">
+                <h2 class="title-primary text-center">Kỹ năng</h2>
+                <div class="skills__grid">
+                    
+                    <!-- Skill 1 -->
+                    <div class="skill-badge">
+                        <span class="skill-badge__icon">⚛️</span>
+                        <span class="skill-badge__text">React</span>
+                    </div>
+
+                    <!-- Skill 2 -->
+                    <div class="skill-badge">
+                        <span class="skill-badge__icon">🌐</span>
+                        <span class="skill-badge__text">Next.js</span>
+                    </div>
+
+                    <!-- Skill 3 -->
+                    <div class="skill-badge">
+                        <span class="skill-badge__icon">🦁</span>
+                        <span class="skill-badge__text">NestJS</span>
+                    </div>
+
+                    <!-- Skill 4 -->
+                    <div class="skill-badge">
+                        <span class="skill-badge__icon">📱</span>
+                        <span class="skill-badge__text">Flutter</span>
+                    </div>
+
+                    <!-- Skill 5 -->
+                    <div class="skill-badge">
+                        <span class="skill-badge__icon">🔴</span>
+                        <span class="skill-badge__text">Oracle</span>
+                    </div>
+
+                    <!-- Skill 6 -->
+                    <div class="skill-badge">
+                        <span class="skill-badge__icon">🍃</span>
+                        <span class="skill-badge__text">MongoDB</span>
+                    </div>
+
+                    <!-- Skill 7 -->
+                    <div class="skill-badge">
+                        <span class="skill-badge__icon">🐳</span>
+                        <span class="skill-badge__text">Docker</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Block -->
+        <section id="contact" class="contact section-padding">
+            <div class="container">
+                <h2 class="title-primary text-center">Liên Hệ</h2>
+                
+                <div class="grid-2-cols contact__grid">
+                    <!-- Contact Left Form -->
+                    <form id="contact-form" class="contact__form" novalidate>
+                        <div class="form-group">
+                            <label for="form-name" class="form-group__label">Họ và tên</label>
+                            <input type="text" id="form-name" class="form-group__input" placeholder="Nhập họ tên của bạn..." required>
+                            <span class="form-group__error">Họ tên là bắt buộc.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-email" class="form-group__label">Email</label>
+                            <input type="email" id="form-email" class="form-group__input" placeholder="email@example.com" required>
+                            <span class="form-group__error">Vui lòng nhập email hợp lệ.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-msg" class="form-group__label">Thông điệp</label>
+                            <textarea id="form-msg" class="form-group__textarea" rows="5" placeholder="Để lại lời nhắn của bạn..." required></textarea>
+                            <span class="form-group__error">Thông điệp là bắt buộc.</span>
+                        </div>
+                        <button type="submit" class="btn-primary">Gửi tin nhắn</button>
+                        <div id="form-status" class="contact__status"></div>
+                    </form>
+
+                    <!-- Contact Right Info -->
+                    <div class="contact__info">
+                        <h3 class="contact__info-title">Thông tin liên lạc</h3>
+                        <p class="contact__info-desc">Tôi luôn sẵn lòng đón nhận các cơ hội thử thách mới. Hãy kết nối với tôi qua:</p>
+                        
+                        <div class="contact__info-list">
+                            <!-- Info Email -->
+                            <div class="contact__info-item flex">
+                                <div class="contact__info-icon">✉️</div>
+                                <div class="contact__info-content">
+                                    <span class="contact__info-label">Email</span>
+                                    <a href="mailto:donatra.dev@gmail.com" class="contact__info-link">donatra.dev@gmail.com</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Info GitHub -->
+                            <div class="contact__info-item flex">
+                                <div class="contact__info-icon">💻</div>
+                                <div class="contact__info-content">
+                                    <span class="contact__info-label">GitHub</span>
+                                    <a href="https://github.com/donatra" target="_blank" rel="noopener" class="contact__info-link">github.com/donatra</a>
+                                </div>
+                            </div>
+
+                            <!-- Info LinkedIn -->
+                            <div class="contact__info-item flex">
+                                <div class="contact__info-icon">💼</div>
+                                <div class="contact__info-content">
+                                    <span class="contact__info-label">LinkedIn</span>
+                                    <a href="https://linkedin.com/in/donatra" target="_blank" rel="noopener" class="contact__info-link">linkedin.com/in/donatra</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="footer__text">&copy; 2026 DO NA TRA. Thiết kế phẳng tối giản chuẩn BEM.</p>
+        </div>
+    </footer>
+
+    <!-- Dialog Modal for Video Demo -->
+    <dialog id="demo-dialog" class="dialog">
+        <div class="dialog__container">
+            <div class="dialog__header flex-between">
+                <h3 class="dialog__title">Xem Demo Dự Án</h3>
+                <button id="close-dialog" class="dialog__close-btn" aria-label="Đóng Dialog">&times;</button>
+            </div>
+            <div class="dialog__body">
+                <video id="demo-video" class="dialog__video" controls>
+                    <source src="DEMO/DM1.mp4.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ phát video này.
+                </video>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- JavaScript Bundle -->
+    <script src="script.js"></script>
+</body>
+</html>
