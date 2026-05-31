@@ -162,38 +162,42 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================================================
        4. LOGIC XỬ LÝ HỘP THOẠI DIALOG VIDEO DEMO (.dialog)
        ========================================================================== */
-    const demoButtons = document.querySelectorAll('.timeline__demo-btn');
     const demoDialog = document.getElementById('demo-dialog');
     const demoVideo = document.getElementById('demo-video');
     const closeDialogBtn = document.getElementById('close-dialog');
 
-    if (demoButtons && demoDialog && demoVideo) {
-        // Gán sự kiện click cho toàn bộ nút demo
-        demoButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const videoSrc = btn.getAttribute('data-video');
-                if (videoSrc) {
-                    // Cập nhật đường dẫn video nếu cần
-                    const sourceElement = demoVideo.querySelector('source');
-                    if (sourceElement && sourceElement.getAttribute('src') !== videoSrc) {
-                        sourceElement.setAttribute('src', videoSrc);
-                        demoVideo.load();
+    const bindDemoEvents = () => {
+        const demoButtons = document.querySelectorAll('.timeline__demo-btn');
+        if (demoButtons && demoDialog && demoVideo) {
+            // Gán sự kiện click cho toàn bộ nút demo động mới tạo
+            demoButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const videoSrc = btn.getAttribute('data-video');
+                    if (videoSrc) {
+                        // Cập nhật đường dẫn video nếu cần
+                        const sourceElement = demoVideo.querySelector('source');
+                        if (sourceElement && sourceElement.getAttribute('src') !== videoSrc) {
+                            sourceElement.setAttribute('src', videoSrc);
+                            demoVideo.load();
+                        }
+                        
+                        // Đưa video về giây thứ 0
+                        demoVideo.currentTime = 0;
+                        
+                        // Hiển thị dialog modal chính thức
+                        demoDialog.showModal();
+                        
+                        // Tự động phát video
+                        demoVideo.play().catch(err => {
+                            console.log("Auto-play bị chặn bởi trình duyệt. Đợi người dùng tương tác.", err);
+                        });
                     }
-                    
-                    // Đưa video về giây thứ 0
-                    demoVideo.currentTime = 0;
-                    
-                    // Hiển thị dialog modal chính thức
-                    demoDialog.showModal();
-                    
-                    // Tự động phát video
-                    demoVideo.play().catch(err => {
-                        console.log("Auto-play blocked by browser. User must click play.", err);
-                    });
-                }
+                });
             });
-        });
+        }
+    };
 
+    if (demoDialog && demoVideo) {
         // Hàm tắt video và đóng dialog
         const closeVideoDialog = () => {
             demoVideo.pause();
@@ -221,7 +225,111 @@ document.addEventListener('DOMContentLoaded', () => {
         demoDialog.addEventListener('close', () => {
             demoVideo.pause();
         });
-
-
     }
+
+    /* ==========================================================================
+       5. TỰ ĐỘNG KẾT XUẤT TIMELINE DỰ ÁN TỪ DỮ LIỆU HTML HEAD (DYNAMIC TIMELINE)
+       ========================================================================== */
+    const timelineContainer = document.querySelector('.timeline__container');
+
+    const renderTimeline = () => {
+        if (!timelineContainer || !window.PROJECTS_DATA) return;
+
+        // Xóa sạch placeholder tĩnh
+        timelineContainer.innerHTML = '';
+
+        // Tạo HTML động từ PROJECTS_DATA
+        window.PROJECTS_DATA.forEach((project) => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'timeline__item';
+
+            const featuresHtml = project.features.map(feat => `<li>${feat}</li>`).join('');
+            const tagsHtml = project.tags.map(tag => `<span class="tech-tag">#${tag}</span>`).join('');
+
+            // Tạo nút bấm hoặc liên kết dựa trên dữ liệu cấu hình
+            let actionHtml = '';
+            if (project.link) {
+                actionHtml = `<a href="${project.link}" target="_blank" rel="noopener" class="btn-outline">Landing Page</a>`;
+            } else {
+                actionHtml = `<button class="btn-outline timeline__demo-btn" data-video="${project.video || ''}">DEMO</button>`;
+            }
+
+            itemElement.innerHTML = `
+                <div class="timeline__marker"></div>
+                <div class="timeline__content">
+                    <div class="timeline__time">${project.time}</div>
+                    <h3 class="timeline__project-title">${project.title}</h3>
+                    <ul class="timeline__feature-list">
+                        ${featuresHtml}
+                    </ul>
+                    <div class="timeline__tags">
+                        ${tagsHtml}
+                    </div>
+                    <div class="timeline__actions">
+                        ${actionHtml}
+                    </div>
+                </div>
+            `;
+
+            timelineContainer.appendChild(itemElement);
+        });
+
+        // Liên kết sự kiện click cho các nút DEMO động mới sinh
+        bindDemoEvents();
+    };
+
+    /* ==========================================================================
+       6. TỰ ĐỘNG KẾT XUẤT THÔNG TIN GIỚI THIỆU TỪ DỮ LIỆU HTML HEAD (DYNAMIC ABOUT)
+       ========================================================================== */
+    const aboutCard = document.querySelector('.about__card');
+
+    const renderAbout = () => {
+        if (!aboutCard || !window.ABOUT_DATA) return;
+
+        const aboutData = window.ABOUT_DATA;
+
+        // Kết xuất danh sách giới thiệu bản thân dạng liệt kê
+        const personalDetailsHtml = `<ul class="about__list">` +
+            aboutData.personal.details.map(item => `<li>${item}</li>`).join('') +
+            `</ul>`;
+
+        // Kết xuất danh sách mục tiêu
+        const goalsHtml = aboutData.goals.map((goal, idx) => {
+            const goalDetailsHtml = `<ul class="about__list">` +
+                goal.details.map(item => `<li>${item}</li>`).join('') +
+                `</ul>`;
+
+            const goalItem = `
+                <div class="about__goal-item">
+                    <h3 class="about__subtitle">${goal.emoji ? goal.emoji + ' ' : ''}${goal.title}</h3>
+                    ${goalDetailsHtml}
+                </div>
+            `;
+            // Thêm divider ở giữa các mục tiêu
+            if (idx < aboutData.goals.length - 1) {
+                return goalItem + `<div class="about__divider"></div>`;
+            }
+            return goalItem;
+        }).join('');
+
+        aboutCard.innerHTML = `
+            <!-- About Left: Personal Info -->
+            <div class="about__personal">
+                <h3 class="about__subtitle">${aboutData.personal.title}</h3>
+                ${personalDetailsHtml}
+            </div>
+
+            <!-- Vertical Divider -->
+            <div class="about__vertical-divider"></div>
+
+            <!-- About Right: Goals (Short-term & Long-term) -->
+            <div class="about__goals">
+                ${goalsHtml}
+            </div>
+        `;
+    };
+
+    // Khởi chạy kết xuất dòng thời gian dự án tiêu biểu và thông tin giới thiệu
+    renderTimeline();
+    renderAbout();
 });

@@ -443,55 +443,73 @@ textarea {
 }
 
 /* --------------------------------------------------------------------------
-   6. BENTO GRID SYSTEM (.about)
+   6. BỐ CỤC GIỚI THIỆU 2 CỘT 6/6 (.about)
    -------------------------------------------------------------------------- */
-.bento-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
-}
-
-.bento-item {
+.about__card {
     background-color: var(--bg-surface);
     border: 2px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: var(--spacing-lg);
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xl);
+    align-items: stretch;
     transition: border-color var(--transition-fast);
 }
 
-.bento-item:hover {
+.about__card:hover {
     border-color: var(--accent);
 }
 
-.bento-item--large {
-    grid-column: span 2 / span 2;
+.about__personal, 
+.about__goals {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
 }
 
-.bento-item__badge {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    color: var(--accent);
-    padding: 0.25rem 0.6rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: var(--radius-sm);
-    width: fit-content;
+.about__vertical-divider {
+    width: 2px;
+    background-color: var(--border-color);
+    align-self: stretch;
 }
 
-.bento-item__title {
+.about__subtitle {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--accent);
+    margin-bottom: var(--spacing-xs);
 }
 
-.bento-item__text {
-    font-size: 0.875rem;
+.about__text {
+    font-size: 0.9375rem;
     color: var(--text-secondary);
     line-height: 1.6;
+}
+
+.about__list {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    padding-left: var(--spacing-md);
+    list-style-type: square;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    line-height: 1.6;
+}
+
+/* Devider phẳng mảnh phân chia mục tiêu */
+.about__divider {
+    height: 2px;
+    background-color: var(--border-color);
+    width: 100%;
+    margin: var(--spacing-xs) 0;
+}
+
+.about__goal-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
 }
 
 /* --------------------------------------------------------------------------
@@ -924,12 +942,18 @@ textarea {
         order: -1;
     }
 
-    .bento-grid {
-        grid-template-columns: 1fr;
+    .about__card {
+        flex-direction: column;
+        gap: var(--spacing-lg);
     }
 
-    .bento-item--large {
-        grid-column: span 1 / span 1;
+    .about__vertical-divider {
+        display: none;
+    }
+
+    .about__personal {
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: var(--spacing-lg);
     }
 }
 

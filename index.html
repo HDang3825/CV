@@ -14,6 +14,80 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Dữ liệu dự án tiêu biểu để cấu hình và chỉnh sửa nhanh tại đầu trang -->
+    <script>
+        window.PROJECTS_DATA = [
+            {
+                time: "2026 - Hiện tại",
+                title: "EzBiz AI Chatbot",
+                features: [
+                    "Hỗ trợ doanh nghiệp trả lời khách hàng tự động thông qua AI.",
+                    "Tích hợp tìm kiếm ngữ nghĩa nâng cao sử dụng mô hình RAG.",
+                    "Lưu trữ trạng thái hội thoại thời gian thực tin cậy."
+                ],
+                tags: ["FastAPI", "RAG", "Firestore"],
+                link: "https://hdang3825.github.io/EZBIZ_Data_3D/"
+            },
+
+            {
+                time: "2025",
+                title: "Hệ thống LibTech",
+                features: [
+                    "Phần mềm quản lý thư viện thông minh và số hóa tài liệu.",
+                    "Quản lý mượn trả, phân loại danh mục sách tự động.",
+                    "Tối ưu hóa tìm kiếm đầu sách và kiểm kê báo cáo tồn kho."
+                ],
+                tags: ["React", "NestJS", "MySQL"],
+                video: "DEMO/DM1.mp4.mp4"
+            },
+
+            {
+                time: "2024",
+                title: "LMS Deployment",
+                features: [
+                    "Triển khai hệ thống quản lý học tập trực tuyến mở rộng.",
+                    "Đóng gói môi trường đồng bộ giúp giảm thiểu sai sót vận hành.",
+                    "Quản lý tiến trình bền bỉ và tự động tải lại khi gặp sự cố."
+                ],
+                tags: ["Azure", "Docker", "PM2", "Ubuntu"],
+                video: "DEMO/DM1.mp4.mp4"
+            }
+        ];
+
+        // Thông tin giới thiệu
+        window.ABOUT_DATA = {
+            personal: {
+                title: "Bản Thân Tôi",
+                details: [
+                    "Sinh viên chuyên ngành Kỹ thuật Phần mềm (Software Engineering) tại Đại học Nguyễn Tất Thành (NTTU).",
+                    "Định hướng phát triển thành lập trình viên Full-stack Web & Mobile chuyên nghiệp.",
+                    "Đam mê thiết kế sạch (Clean Code), tối giản phẳng (Flat Design) và tối ưu hóa hiệu năng.",
+                    "Luôn nỗ lực nghiên cứu các công nghệ mới nhằm giải quyết trực tiếp nhu cầu thực tiễn."
+                ]
+            },
+            goals: [
+                {
+                    emoji: "",
+                    title: "Mục Tiêu Ngắn Hạn",
+                    details: [
+                        "Hoàn thành xuất sắc chương trình học đại học chuyên ngành IT tại NTTU.",
+                        "Tích lũy kinh nghiệm làm việc thực chiến qua các dự án doanh nghiệp thực tế.",
+                        "Nắm vững và vận hành thành thạo quy trình phát triển phần mềm Agile/Scrum."
+                    ]
+                },
+                {
+                    emoji: "",
+                    title: "Mục Tiêu Dài Hạn",
+                    details: [
+                        "Vươn lên vị trí Senior Full-Stack Engineer sau 3 - 5 năm làm việc chuyên nghiệp.",
+                        "Làm chủ thiết kế hệ thống phân tán, xử lý dữ liệu quy mô lớn và chịu tải tốt.",
+                        "Đi sâu nghiên cứu, ứng dụng Big Data và các mô hình Học máy thông minh."
+                    ]
+                }
+            ]
+        };
+    </script>
 </head>
 <body>
 
@@ -73,39 +147,13 @@
             </div>
         </section>
 
-        <!-- About Bento Grid Block -->
+        <!-- About Block -->
         <section id="about" class="about section-padding">
             <div class="container">
                 <h2 class="title-primary text-center">Giới Thiệu</h2>
                 
-                <!-- Bento Grid Layout -->
-                <div class="bento-grid">
-                    <!-- Item 1: Large -->
-                    <div class="bento-item bento-item--large">
-                        <div class="bento-item__badge">💡 Sứ Mệnh</div>
-                        <h3 class="bento-item__title">Đam mê phát triển Full-stack</h3>
-                        <p class="bento-item__text">
-                            Tôi luôn hào hứng tìm tòi và ứng dụng những giải pháp công nghệ toàn diện từ phía máy khách (Frontend) đến phía máy chủ (Backend). Tạo ra các ứng dụng mượt mà, tối giản và hữu ích là mục tiêu hàng đầu của tôi.
-                        </p>
-                    </div>
-
-                    <!-- Item 2: Medium -->
-                    <div class="bento-item">
-                        <div class="bento-item__badge">📊 Nghiên Cứu</div>
-                        <h3 class="bento-item__title">Big Data & Machine Learning</h3>
-                        <p class="bento-item__text">
-                            Đang đi sâu tìm tòi và hiện thực hóa các thuật toán học máy cơ bản như **KNN (K-Nearest Neighbors)** và **Decision Trees** để khai phá tri thức từ dữ liệu lớn.
-                        </p>
-                    </div>
-
-                    <!-- Item 3: Small -->
-                    <div class="bento-item">
-                        <div class="bento-item__badge">☁️ Vận Hành</div>
-                        <h3 class="bento-item__title">Kiến Trúc DevOps</h3>
-                        <p class="bento-item__text">
-                            Khám phá quy trình đóng gói container, quản lý tiến trình và triển khai ứng dụng tự động trên các nền tảng đám mây hiện đại.
-                        </p>
-                    </div>
+                <div class="about__card">
+                    <!-- Nội dung giới thiệu sẽ được tự động kết xuất từ dữ liệu khai báo ở <head> -->
                 </div>
             </div>
         </section>
@@ -159,74 +207,7 @@
                 <h2 class="title-primary text-center">Dự Án Tiêu Biểu</h2>
                 
                 <div class="timeline__container">
-                    
-                    <!-- Timeline Item 1 -->
-                    <div class="timeline__item">
-                        <div class="timeline__marker"></div>
-                        <div class="timeline__content">
-                            <div class="timeline__time">2026 - Hiện tại</div>
-                            <h3 class="timeline__project-title">EzBiz AI Chatbot</h3>
-                            <ul class="timeline__feature-list">
-                                <li>Hỗ trợ doanh nghiệp trả lời khách hàng tự động thông qua AI.</li>
-                                <li>Tích hợp tìm kiếm ngữ nghĩa nâng cao sử dụng mô hình RAG.</li>
-                                <li>Lưu trữ trạng thái hội thoại thời gian thực tin cậy.</li>
-                            </ul>
-                            <div class="timeline__tags">
-                                <span class="tech-tag">#FastAPI</span>
-                                <span class="tech-tag">#RAG</span>
-                                <span class="tech-tag">#Firestore</span>
-                            </div>
-                            <div class="timeline__actions">
-                                <button class="btn-outline timeline__demo-btn" data-video="DEMO/DM1.mp4.mp4">DEMO</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item 2 -->
-                    <div class="timeline__item">
-                        <div class="timeline__marker"></div>
-                        <div class="timeline__content">
-                            <div class="timeline__time">2025</div>
-                            <h3 class="timeline__project-title">Hệ thống LibTech</h3>
-                            <ul class="timeline__feature-list">
-                                <li>Phần mềm quản lý thư viện thông minh và số hóa tài liệu.</li>
-                                <li>Quản lý mượn trả, phân loại danh mục sách tự động.</li>
-                                <li>Tối ưu hóa tìm kiếm đầu sách và kiểm kê báo cáo tồn kho.</li>
-                            </ul>
-                            <div class="timeline__tags">
-                                <span class="tech-tag">#React</span>
-                                <span class="tech-tag">#NestJS</span>
-                                <span class="tech-tag">#MySQL</span>
-                            </div>
-                            <div class="timeline__actions">
-                                <button class="btn-outline timeline__demo-btn" data-video="DEMO/DM1.mp4.mp4">DEMO</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item 3 -->
-                    <div class="timeline__item">
-                        <div class="timeline__marker"></div>
-                        <div class="timeline__content">
-                            <div class="timeline__time">2024</div>
-                            <h3 class="timeline__project-title">LMS Deployment</h3>
-                            <ul class="timeline__feature-list">
-                                <li>Triển khai hệ thống quản lý học tập trực tuyến mở rộng.</li>
-                                <li>Đóng gói môi trường đồng bộ giúp giảm thiểu sai sót vận hành.</li>
-                                <li>Quản lý tiến trình bền bỉ và tự động tải lại khi gặp sự cố.</li>
-                            </ul>
-                            <div class="timeline__tags">
-                                <span class="tech-tag">#Azure</span>
-                                <span class="tech-tag">#Docker</span>
-                                <span class="tech-tag">#PM2</span>
-                                <span class="tech-tag">#Ubuntu</span>
-                            </div>
-                            <div class="timeline__actions">
-                                <button class="btn-outline timeline__demo-btn" data-video="DEMO/DM1.mp4.mp4">DEMO</button>
-                            </div>
-                        </div>
-                    </div>
-
+                    <!-- Dòng thời gian dự án sẽ được tự động kết xuất từ dữ liệu khai báo ở <head> -->
                 </div>
             </div>
         </section>
@@ -330,9 +311,8 @@
                                 <div class="contact__info-icon">💻</div>
                                 <div class="contact__info-content">
                                     <span class="contact__info-label">GitHub</span>
-                                    <a href="https://github.com/donatra" target="_blank" rel="noopener" class="contact__info-link">github.com/donatra</a>
+                                    <a href="https://github.com/iNaTraaa/" target="_blank" rel="noopener" class="contact__info-link">github.com/donatra</a>
                                 </div>
-                            </div>
 
                             <!-- Info LinkedIn -->
                             <div class="contact__info-item flex">
