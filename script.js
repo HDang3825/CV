@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     formStatus.textContent = 'Cảm ơn bạn! Thông điệp đã được gửi đi thành công. Tra sẽ liên hệ sớm nhé!';
                     formStatus.className = 'contact__status contact__status--success';
-                    
+
                     // Xóa trắng form
                     contactForm.reset();
                     submitBtn.disabled = false;
@@ -180,13 +180,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             sourceElement.setAttribute('src', videoSrc);
                             demoVideo.load();
                         }
-                        
+
                         // Đưa video về giây thứ 0
                         demoVideo.currentTime = 0;
-                        
+
                         // Hiển thị dialog modal chính thức
                         demoDialog.showModal();
-                        
+
                         // Tự động phát video
                         demoVideo.play().catch(err => {
                             console.log("Auto-play bị chặn bởi trình duyệt. Đợi người dùng tương tác.", err);
@@ -254,21 +254,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 actionHtml = `<button class="btn-outline timeline__demo-btn" data-video="${project.video || ''}">DEMO</button>`;
             }
 
+            // Tạo khối thành tích ở phần đối diện
+            let achievementHtml = '';
+            if (project.achievement) {
+                achievementHtml = `
+                    <div class="timeline__achievement">
+                        <article class="achievement-card">
+                            <div class="achievement-card__header flex-between">
+                                <span class="achievement-card__tag">Thành tích nổi bật</span>
+                                <span class="achievement-card__icon">${project.achievement.emoji || '🏆'}</span>
+                            </div>
+                            <h4 class="achievement-card__title">${project.achievement.title}</h4>
+                            <p class="achievement-card__desc">${project.achievement.desc}</p>
+                        </article>
+                    </div>
+                `;
+            }
+
             itemElement.innerHTML = `
                 <div class="timeline__marker"></div>
-                <div class="timeline__content">
-                    <div class="timeline__time">${project.time}</div>
-                    <h3 class="timeline__project-title">${project.title}</h3>
-                    <ul class="timeline__feature-list">
-                        ${featuresHtml}
-                    </ul>
-                    <div class="timeline__tags">
-                        ${tagsHtml}
-                    </div>
-                    <div class="timeline__actions">
-                        ${actionHtml}
+                <div class="timeline__project">
+                    <div class="timeline__content">
+                        <div class="timeline__time">${project.time}</div>
+                        <h3 class="timeline__project-title">${project.title}</h3>
+                        <ul class="timeline__feature-list">
+                            ${featuresHtml}
+                        </ul>
+                        <div class="timeline__tags">
+                            ${tagsHtml}
+                        </div>
+                        <div class="timeline__actions">
+                            ${actionHtml}
+                        </div>
                     </div>
                 </div>
+                ${achievementHtml}
             `;
 
             timelineContainer.appendChild(itemElement);
@@ -329,7 +349,61 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
-    // Khởi chạy kết xuất dòng thời gian dự án tiêu biểu và thông tin giới thiệu
+    /* ==========================================================================
+       7. TỰ ĐỘNG KẾT XUẤT CHUYÊN MÔN (DYNAMIC SERVICES)
+       ========================================================================== */
+    const servicesGrid = document.querySelector('.services__grid');
+
+    const renderServices = () => {
+        if (!servicesGrid || !window.SERVICES_DATA) return;
+
+        servicesGrid.innerHTML = '';
+
+        window.SERVICES_DATA.forEach((service) => {
+            const cardElement = document.createElement('article');
+            cardElement.className = 'card-service';
+
+            cardElement.innerHTML = `
+                <div class="card-service__icon">
+                    ${service.icon}
+                </div>
+                <h3 class="card-service__title">${service.title}</h3>
+                <p class="card-service__desc">${service.desc}</p>
+            `;
+
+            servicesGrid.appendChild(cardElement);
+        });
+    };
+
+    /* ==========================================================================
+       8. TỰ ĐỘNG KẾT XUẤT KỸ NĂNG (DYNAMIC SKILLS)
+       ========================================================================== */
+    const skillsGrid = document.querySelector('.skills__grid');
+
+    const renderSkills = () => {
+        if (!skillsGrid || !window.ACTIVE_SKILLS || !window.AVAILABLE_SKILLS) return;
+
+        skillsGrid.innerHTML = '';
+
+        window.ACTIVE_SKILLS.forEach((id) => {
+            const skill = window.AVAILABLE_SKILLS[id];
+            if (!skill) return;
+
+            const badgeElement = document.createElement('div');
+            badgeElement.className = 'skill-badge';
+
+            badgeElement.innerHTML = `
+                <span class="skill-badge__icon">${skill.icon}</span>
+                <span class="skill-badge__text">${skill.name}</span>
+            `;
+
+            skillsGrid.appendChild(badgeElement);
+        });
+    };
+
+    // Khởi chạy kết xuất dòng thời gian dự án tiêu biểu, thông tin giới thiệu, chuyên môn và kỹ năng
     renderTimeline();
     renderAbout();
+    renderServices();
+    renderSkills();
 });
