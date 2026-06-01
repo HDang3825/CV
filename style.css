@@ -15,6 +15,12 @@
     --bg-surface-active: #334155;
     /* Slate 700 - Trạng thái hoạt động */
 
+    --bg-header-scrolled: rgba(15, 23, 42, 0.9);
+    --bg-card-container: rgba(15, 23, 42, 0.4);
+    --bg-achievement-card: rgba(30, 41, 59, 0.4);
+    --bg-achievement-card-hover: rgba(16, 185, 129, 0.12);
+    /* Translucent emerald tint */
+
     --border-color: #334155;
     /* Slate 700 - Viền phẳng mảnh */
     --border-color-hover: #475569;
@@ -60,6 +66,43 @@
     /* Motion */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.25s ease;
+}
+
+[data-theme="light"] {
+    --bg-primary: #E9E9E9;
+    /* Slate 50 - Nền sáng */
+    --bg-surface: #E9E9E9;
+    /* Trùng màu với nền chính E9E9E9 */
+    --bg-surface-active: #d1d5db;
+    /* Gray 300 - Trạng thái hoạt động tương ứng với nền E9E9E9 */
+
+    --bg-header-scrolled: rgba(233, 233, 233, 0.85);
+    /* Translucent #E9E9E9 header background */
+    --bg-card-container: #dedede;
+    /* Hài hòa với nền #E9E9E9 */
+    --bg-achievement-card: rgba(255, 255, 255, 0.6);
+    /* Giữ độ tương phản tốt trên nền tối hơn */
+    --bg-achievement-card-hover: rgba(5, 150, 105, 0.08);
+    /* Beautiful premium emerald tint for light mode hover */
+
+    --border-color: #cccccc;
+    /* Đậm hơn chút để thấy rõ border trên nền E9E9E9 */
+    --border-color-hover: #b3b3b3;
+    /* Slate 300 */
+
+    --text-primary: #0f172a;
+    /* Slate 900 - Chữ tối */
+    --text-secondary: #334155;
+    /* Tối hơn chút để tương phản tốt trên E9E9E9 */
+    --text-muted: #64748b;
+    /* Gray 500 */
+
+    /* Emerald accent remains solid and premium */
+    --accent: #059669;
+    /* Emerald 600 */
+    --accent-hover: #047857;
+    /* Emerald 700 */
+    --accent-dim: rgba(5, 150, 105, 0.1);
 }
 
 /* --------------------------------------------------------------------------
@@ -260,7 +303,7 @@ textarea {
 
 /* Scrolled state active via JS */
 .header--scrolled {
-    background-color: rgba(15, 23, 42, 0.9);
+    background-color: var(--bg-header-scrolled);
     border-bottom-color: var(--border-color);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -366,16 +409,69 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
+    perspective: 1000px; /* Enable 3D space */
 }
 
-/* Flat Code Snippet Card */
-.hero__snippet {
-    background-color: var(--bg-surface);
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius-md);
+/* Container holding front and back faces */
+.hero__card-container {
+    width: 320px;
+    height: 320px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+/* Hover effect: Flip card */
+.hero__card-container:hover {
+    transform: rotateY(180deg);
+}
+
+/* Base style for both faces */
+.hero__avatar-face,
+.hero__snippet-face {
+    position: absolute;
     width: 100%;
-    max-width: 400px;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* Safari support */
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-color);
+    box-sizing: border-box;
+    overflow: hidden;
+    transform: translateZ(0); /* Force hardware acceleration */
+    will-change: transform;
+}
+
+/* Avatar Face (Front) */
+.hero__avatar-face {
+    background-color: var(--bg-surface);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Snippet Face (Back) */
+.hero__snippet-face {
+    background-color: var(--bg-surface);
+    transform: rotateY(180deg); /* Render on the back side */
     padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Flat Code Snippet Card override */
+.hero__snippet {
+    width: 100%;
+    height: 100%;
 }
 
 .hero__snippet-header {
@@ -615,7 +711,7 @@ textarea {
 @media (min-width: 992px) {
     .timeline__container {
         padding-left: 0;
-        max-width: 960px;
+        max-width: 1140px;
     }
 
     .timeline__container::before {
@@ -636,6 +732,7 @@ textarea {
         order: 1;
         margin-bottom: 0;
     }
+
     .timeline__item:nth-child(odd) .timeline__achievement {
         order: 2;
         justify-content: flex-start;
@@ -646,6 +743,7 @@ textarea {
         order: 2;
         margin-bottom: 0;
     }
+
     .timeline__item:nth-child(even) .timeline__achievement {
         order: 1;
         justify-content: flex-end;
@@ -684,21 +782,23 @@ textarea {
 
 /* Thẻ thành tích nhỏ gọn để giữ trọng tâm vào dự án */
 .achievement-card {
-    background-color: rgba(30, 41, 59, 0.4);
+    background-color: var(--bg-achievement-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: var(--spacing-sm) var(--spacing-md);
     display: flex;
     flex-direction: column;
     gap: 4px;
-    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+    transition: transform var(--transition-normal), border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-normal);
     max-width: 380px;
     width: 100%;
 }
 
 .achievement-card:hover {
     border-color: var(--accent);
-    background-color: rgba(30, 41, 59, 0.8);
+    background-color: var(--bg-achievement-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px -6px rgba(16, 185, 129, 0.15);
 }
 
 .achievement-card__header {
@@ -734,15 +834,17 @@ textarea {
     background-color: var(--bg-surface);
     border: 2px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: var(--spacing-lg);
+    padding: 1.25rem 1.75rem;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
-    transition: border-color var(--transition-fast);
+    transition: transform var(--transition-normal), border-color var(--transition-fast), box-shadow var(--transition-normal);
 }
 
-.timeline__item:hover .timeline__content {
+.timeline__content:hover {
     border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px -8px rgba(16, 185, 129, 0.18);
 }
 
 .timeline__time {
@@ -791,11 +893,86 @@ textarea {
 /* --------------------------------------------------------------------------
    9. SKILLS GRID (.skills)
    -------------------------------------------------------------------------- */
+.skills__container {
+    align-items: start;
+}
+
+.skills__col {
+    background-color: var(--bg-card-container);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    transition: border-color var(--transition-fast);
+}
+
+.skills__col:hover {
+    border-color: var(--accent);
+}
+
+.skills__subtitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    padding-bottom: var(--spacing-xs);
+}
+
+.skills__subtitle::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--accent);
+    margin: var(--spacing-xs) auto 0 auto;
+}
+
 .skills__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: var(--spacing-md);
     margin-top: var(--spacing-md);
+}
+
+/* Soft Skills List View Styling */
+.skills__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.skills__list-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: 0.85rem var(--spacing-md);
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast), transform var(--transition-normal), background-color var(--transition-fast);
+}
+
+.skills__list-item:hover {
+    border-color: var(--accent);
+    background-color: var(--bg-surface-active);
+    transform: translateX(8px);
+}
+
+.skills__list-icon {
+    font-size: 1.25rem;
+    width: 24px;
+    height: 24px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skills__list-text {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .skill-badge {
@@ -837,90 +1014,9 @@ textarea {
 /* --------------------------------------------------------------------------
    10. CONTACT BLOCK (.contact)
    -------------------------------------------------------------------------- */
-.contact__grid {
-    align-items: flex-start;
-}
-
-.contact__form {
-    background-color: var(--bg-surface);
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-}
-
-.form-group__label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary);
-}
-
-.form-group__input,
-.form-group__textarea {
-    background-color: var(--bg-primary);
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 0.75rem 1rem;
-    color: var(--text-primary);
-    font-size: 0.875rem;
-    transition: border-color var(--transition-fast);
-}
-
-.form-group__input:focus,
-.form-group__textarea:focus {
-    border-color: var(--accent);
-}
-
-.form-group__textarea {
-    resize: vertical;
-}
-
-.form-group__error {
-    font-size: 0.75rem;
-    color: var(--error);
-    display: none;
-}
-
-.form-group--invalid .form-group__error {
-    display: block;
-}
-
-.form-group--invalid .form-group__input,
-.form-group--invalid .form-group__textarea {
-    border-color: var(--error);
-}
-
-.contact__status {
-    padding: var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-align: center;
-    display: none;
-}
-
-.contact__status--success {
-    display: block;
-    background-color: var(--accent-dim);
-    color: var(--success);
-    border: 1px solid var(--success);
-}
-
-.contact__status--error {
-    display: block;
-    background-color: rgba(244, 63, 94, 0.1);
-    color: var(--error);
-    border: 1px solid var(--error);
+.contact__container {
+    max-width: 550px;
+    margin: 0 auto;
 }
 
 .contact__info {
@@ -930,21 +1026,18 @@ textarea {
     padding: var(--spacing-lg) 0;
 }
 
-.contact__info-title {
-    font-size: 1.5rem;
-    font-weight: 800;
-}
-
 .contact__info-desc {
     color: var(--text-secondary);
     font-size: 0.9375rem;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-sm);
 }
 
 .contact__info-list {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-    margin-top: var(--spacing-sm);
 }
 
 .contact__info-item {
@@ -954,11 +1047,12 @@ textarea {
     border: 2px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: var(--spacing-sm) var(--spacing-md);
-    transition: border-color var(--transition-fast);
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .contact__info-item:hover {
     border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
 .contact__info-icon {
@@ -971,6 +1065,13 @@ textarea {
     align-items: center;
     justify-content: center;
     border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.contact__info-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
 }
 
 .contact__info-content {
@@ -999,13 +1100,20 @@ textarea {
    -------------------------------------------------------------------------- */
 .footer {
     border-top: 1px solid var(--border-color);
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-sm) 0;
     background-color: var(--bg-primary);
 }
 
 .footer__text {
     font-size: 0.75rem;
     color: var(--text-muted);
+}
+
+.footer__thankyou {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+    font-weight: 500;
 }
 
 /* --------------------------------------------------------------------------
@@ -1064,6 +1172,11 @@ textarea {
 
     .hero__title {
         font-size: 2.25rem;
+    }
+
+    .hero__title-break {
+        display: block;
+        margin-top: 0.25rem;
     }
 
     .timeline__container {
@@ -1140,4 +1253,79 @@ textarea {
     border-radius: var(--radius-sm);
     border: 2px solid var(--border-color);
     background-color: #000;
+}
+
+/* ==========================================================================
+   14. HIỆU ỨNG CUỘN TRANG (SCROLL REVEAL & HEADER ACTIVE NAVIGATION)
+   ========================================================================== */
+.header__link--active {
+    color: var(--text-primary) !important;
+}
+
+.header__link--active::after {
+    width: 100% !important;
+}
+
+/* Scroll Reveal base state */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+/* Scroll Reveal visible state */
+.reveal--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   15. THEME TOGGLE SWITCH BUTTON
+   ========================================================================== */
+.theme-toggle {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+}
+
+.theme-toggle__icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-primary);
+    position: absolute;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Toggle visibility between Sun and Moon based on theme */
+[data-theme="dark"] .theme-toggle__icon--sun {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+[data-theme="dark"] .theme-toggle__icon--moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+}
+
+[data-theme="light"] .theme-toggle__icon--sun {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+}
+
+[data-theme="light"] .theme-toggle__icon--moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
 }
