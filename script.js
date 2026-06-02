@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "skills.soft": "Kỹ năng mềm",
             "contact.title": "Liên Hệ",
             "dialog.title": "Xem Demo Dự Án",
+            "dialog.external": "Xem trên YouTube",
             "dialog.unsupported": "Trình duyệt của bạn không hỗ trợ phát video này.",
             "footer.thankyou": "Chân thành cảm ơn Quý Nhà tuyển dụng (HR) đã dành thời gian quý báu xem qua hồ sơ năng lực của tôi. Chúc bạn một ngày tốt lành và ngập tràn niềm vui!"
         },
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "skills.soft": "Soft Skills",
             "contact.title": "Contact Me",
             "dialog.title": "Project Demo",
+            "dialog.external": "Watch on YouTube",
             "dialog.unsupported": "Your browser does not support the video tag.",
             "footer.thankyou": "Sincere thanks to HR for spending your valuable time reviewing my portfolio. Wish you a wonderful day filled with joy!"
         }
@@ -359,45 +361,90 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================================================== */
     const demoDialog = document.getElementById('demo-dialog');
     const demoVideo = document.getElementById('demo-video');
+    const demoYoutube = document.getElementById('demo-youtube');
+    const externalVideoLink = document.getElementById('external-video-link');
     const closeDialogBtn = document.getElementById('close-dialog');
+
+    // Chuyển đổi link YouTube sang định dạng nhúng (embed)
+    const getYouTubeEmbedUrl = (url) => {
+        // Regex nâng cao xử lý mọi định dạng link YouTube (kể cả chứa params phụ như &feature, shorts, watch?v=...)
+        const regExp = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        if (match && match[1] && match[1].length === 11) {
+            return `https://www.youtube.com/embed/${match[1]}?autoplay=1`;
+        }
+        return null;
+    };
 
     const bindDemoEvents = () => {
         const demoButtons = document.querySelectorAll('.timeline__demo-btn');
-        if (demoButtons && demoDialog && demoVideo) {
+        if (demoButtons && demoDialog && (demoVideo || demoYoutube)) {
             // Gán sự kiện click cho toàn bộ nút demo động mới tạo
             demoButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const videoSrc = btn.getAttribute('data-video');
                     if (videoSrc) {
-                        // MOBILE: Mở video trực tiếp trên tab mới để trình duyệt phát native
+                        // MOBILE: Mở video/link YouTube trực tiếp trên tab mới để xem native
                         if (window.innerWidth <= 768) {
                             window.open(videoSrc, '_blank');
                             return;
                         }
 
                         // DESKTOP: Hiển thị trong dialog modal
-                        const sourceElement = demoVideo.querySelector('source');
-                        if (sourceElement && sourceElement.getAttribute('src') !== videoSrc) {
-                            sourceElement.setAttribute('src', videoSrc);
-                            demoVideo.load();
+                        const youtubeUrl = getYouTubeEmbedUrl(videoSrc);
+
+                        if (youtubeUrl) {
+                            // Phát YouTube: Ẩn video HTML5, hiện iframe
+                            if (demoVideo) {
+                                demoVideo.style.display = 'none';
+                                demoVideo.pause();
+                            }
+                            if (demoYoutube) {
+                                demoYoutube.style.display = 'block';
+                                demoYoutube.setAttribute('src', youtubeUrl);
+                            }
+                            // Hiển thị nút "Xem trên YouTube" để giải quyết lỗi 153 của chính chủ
+                            if (externalVideoLink) {
+                                externalVideoLink.setAttribute('href', videoSrc);
+                                externalVideoLink.style.display = 'inline-block';
+                            }
+                        } else {
+                            // Phát file Video: Ẩn iframe, hiện video HTML5
+                            if (demoYoutube) {
+                                demoYoutube.style.display = 'none';
+                                demoYoutube.setAttribute('src', '');
+                            }
+                            if (externalVideoLink) {
+                                externalVideoLink.style.display = 'none';
+                                externalVideoLink.setAttribute('href', '#');
+                            }
+                            if (demoVideo) {
+                                demoVideo.style.display = 'block';
+                                const sourceElement = demoVideo.querySelector('source');
+                                if (sourceElement && sourceElement.getAttribute('src') !== videoSrc) {
+                                    sourceElement.setAttribute('src', videoSrc);
+                                    demoVideo.load();
+                                }
+                                demoVideo.currentTime = 0;
+                                demoVideo.play().catch(err => {
+                                    console.log("Auto-play bị chặn bởi trình duyệt.", err);
+                                });
+                            }
                         }
 
-                        demoVideo.currentTime = 0;
                         demoDialog.showModal();
-
-                        demoVideo.play().catch(err => {
-                            console.log("Auto-play bị chặn bởi trình duyệt. Đợi người dùng tương tác.", err);
-                        });
                     }
                 });
             });
         }
     };
 
-    if (demoDialog && demoVideo) {
+    if (demoDialog) {
         // Hàm tắt video và đóng dialog
         const closeVideoDialog = () => {
-            demoVideo.pause();
+            if (demoVideo) demoVideo.pause();
+            if (demoYoutube) demoYoutube.setAttribute('src', ''); // Ngắt kết nối để dừng phát nhạc YouTube ngầm
+            if (externalVideoLink) externalVideoLink.style.display = 'none';
             demoDialog.close();
         };
 
@@ -420,7 +467,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Lắng nghe sự kiện close mặc định của dialog (Ví dụ nhấn ESC)
         demoDialog.addEventListener('close', () => {
-            demoVideo.pause();
+            if (demoVideo) demoVideo.pause();
+            if (demoYoutube) demoYoutube.setAttribute('src', '');
+            if (externalVideoLink) externalVideoLink.style.display = 'none';
         });
     }
 

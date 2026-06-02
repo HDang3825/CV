@@ -10,7 +10,7 @@
         })();
 
         // Cấu hình tên cho toàn bộ trang web
-        window.USER_NAME = "Võ Lê Hải Đăng";
+        window.USER_NAME = "Đỗ Na Tra";
 
         // Cấu hình thông tin khối Code Snippet ở Hero Section (ở cạnh cái xin chào, tôi tên là)
         window.HERO_SNIPPET_DATA = {
@@ -84,7 +84,7 @@
                     "Quản lý tiến trình bền bỉ và tự động tải lại khi gặp sự cố."
                 ],
                 tags: ["Azure", "Docker", "PM2", "Ubuntu"],
-                video: "DEMO/DM1.mp4.mp4",
+                video: "https://www.youtube.com/watch?v=2oJqY4nhL-c",
                 achievement: {
                     title: "Triển khai thực tế cho 500+ sinh viên",
                     desc: "Hệ thống vận hành ổn định trong suốt học kỳ với tỉ lệ phản hồi lỗi dưới 1%.",
@@ -226,7 +226,8 @@
             </nav>
             <div class="header__actions" style="display: flex; gap: 10px; align-items: center;">
                 <!-- Language Toggle Button -->
-                <button id="lang-toggle" class="theme-toggle" aria-label="Switch Language" style="font-weight: 700; font-size: 0.85rem;">
+                <button id="lang-toggle" class="theme-toggle" aria-label="Switch Language"
+                    style="font-weight: 700; font-size: 0.85rem;">
                     EN
                 </button>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Chuyển chế độ sáng tối">
@@ -259,7 +260,9 @@
             <div class="container grid-2-cols items-center hero__container">
                 <!-- Hero Left Content -->
                 <div class="hero__content">
-                    <h1 class="hero__title"><span data-i18n="hero.greeting">Xin chào, </span><span class="hero__title-break"><span data-i18n="hero.intro">tôi là </span><span class="dynamic-name">Do Na Tra</span></span></h1>
+                    <h1 class="hero__title"><span data-i18n="hero.greeting">Xin chào, </span><span
+                            class="hero__title-break"><span data-i18n="hero.intro">tôi là </span><span
+                                class="dynamic-name">Do Na Tra</span></span></h1>
                     <div class="hero__subtitle">
                         <span id="auto-typing" class="hero__typing"></span>
                     </div>
@@ -373,7 +376,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container text-center">
-            <p class="footer__thankyou" data-i18n="footer.thankyou">Chân thành cảm ơn Quý Nhà tuyển dụng (HR) đã dành thời gian quý báu xem qua hồ sơ năng lực của tôi. Chúc bạn một ngày tốt lành và ngập tràn niềm vui!</p>
+            <p class="footer__thankyou" data-i18n="footer.thankyou">Chân thành cảm ơn Quý Nhà tuyển dụng (HR) đã dành
+                thời gian quý báu xem qua hồ sơ năng lực của tôi. Chúc bạn một ngày tốt lành và ngập tràn niềm vui!</p>
         </div>
     </footer>
 
@@ -382,13 +386,22 @@
         <div class="dialog__container">
             <div class="dialog__header flex-between">
                 <h3 class="dialog__title" data-i18n="dialog.title">Xem Demo Dự Án</h3>
-                <button id="close-dialog" class="dialog__close-btn" aria-label="Close Dialog">&times;</button>
+                <div class="flex" style="gap: 15px; align-items: center;">
+                    <a id="external-video-link" href="#" target="_blank" rel="noopener" class="btn-outline"
+                        style="font-size: 0.75rem; padding: 4px 10px; display: none;" data-i18n="dialog.external">Xem
+                        trên YouTube</a>
+                    <button id="close-dialog" class="dialog__close-btn" aria-label="Close Dialog">&times;</button>
+                </div>
             </div>
             <div class="dialog__body">
-                <video id="demo-video" class="dialog__video" controls>
+                <video id="demo-video" class="dialog__video" controls style="width: 100%; display: block;">
                     <source src="DEMO/DM1.mp4.mp4" type="video/mp4">
                     <span data-i18n="dialog.unsupported">Trình duyệt của bạn không hỗ trợ phát video này.</span>
                 </video>
+                <iframe id="demo-youtube" class="dialog__video"
+                    style="width: 100%; height: 450px; display: none; border: none;"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
         </div>
     </dialog>
